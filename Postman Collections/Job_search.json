@@ -1,0 +1,571 @@
+{
+	"info": {
+		"_postman_id": "7a7e2a0b-b520-459f-bb04-0f0c1c5fbd0b",
+		"name": "Job SEARCH endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Positive tests",
+			"item": [
+				{
+					"name": "By position",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9873b853-beb8-46c4-906c-5c8880fa95f8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Position name text, QA\", function () {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"    pm.expect(jsonResponse.content[0].position).to.include(\"QA\");\r",
+									"for(let i=0; i< jsonResponse.content.length; i++){\r",
+									"pm.expect(jsonResponse.content[i].position).to.include(\"QA\")\r",
+									"}});\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Position body details, QA\", function () {\r",
+									"    pm.expect(jsonResponse.content[0].position).to.include(\"QA\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"position\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"company\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"location\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"seniority\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"link\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"description\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"time\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"salary\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"date\");\r",
+									"    if (jsonResponse.content[0].salary) {\r",
+									"        pm.expect(jsonResponse.content[0].salary).to.not.equal(\"\");\r",
+									"    } else {\r",
+									"        jsonResponse.content[0].salary = \"unknown\";\r",
+									"    }\r",
+									"});\r",
+									"pm.test(\"Status code is 204 when no results are available\", function () {\r",
+									"    if (pm.response.code === 204) {\r",
+									"        var jsonResponse = pm.response.json();\r",
+									"        pm.expect(jsonResponse).to.deep.include({ message: \"No result available\" });\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "9fa52e25-4899-4c90-ac5b-4347664adac9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.jobka.net:8081/jobs?position=QA",
+							"protocol": "http",
+							"host": [
+								"api",
+								"jobka",
+								"net"
+							],
+							"port": "8081",
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "position",
+									"value": "QA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "65424a42-919c-48c1-8e2a-b093eb10598c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Location name text, Toronto\", function () {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"    pm.expect(jsonResponse.content[0].location).to.eq(\"Toronto, ON, Canada\");\r",
+									"for(let i=0; i< jsonResponse.content.length; i++){\r",
+									"pm.expect(jsonResponse.content[i].location).to.eq(\"Toronto, ON, Canada\")\r",
+									"}});\r",
+									"\r",
+									"pm.test(\"Location body details, Toronto\", function () {\r",
+									"    pm.expect(jsonResponse.content[0].location).to.include(\"Toronto\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"position\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"company\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"location\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"seniority\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"link\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"description\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"time\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"salary\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"date\");\r",
+									"    if (jsonResponse.content[0].salary) {\r",
+									"        pm.expect(jsonResponse.content[0].salary).to.not.equal(\"\");\r",
+									"    } else {\r",
+									"        jsonResponse.content[0].salary = \"unknown\";\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 204 when no results are available\", function () {\r",
+									"    if (pm.response.code === 204) {\r",
+									"        var jsonResponse = pm.response.json();\r",
+									"        pm.expect(jsonResponse).to.deep.include({ message: \"No result available\" });\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "44c71fd4-3a3f-44f9-a556-01175340a484",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.jobka.net:8081/jobs?location=Toronto",
+							"protocol": "http",
+							"host": [
+								"api",
+								"jobka",
+								"net"
+							],
+							"port": "8081",
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Toronto"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4cb54d56-b0a1-483c-8431-1fb82ab5fe3f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Company name text, Apple\", function () {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"    pm.expect(jsonResponse.content[0].company).to.eq(\"Apple\");\r",
+									"for(let i=0; i< jsonResponse.content.length; i++){\r",
+									"pm.expect(jsonResponse.content[i].company).to.eq(\"Apple\")\r",
+									"}});\r",
+									"\r",
+									"pm.test(\"Company body details, Apple\", function () {\r",
+									"    pm.expect(jsonResponse.content[0].company).to.include(\"Apple\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"position\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"company\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"location\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"seniority\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"link\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"description\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"time\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"salary\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"date\");\r",
+									"    if (jsonResponse.content[0].salary) {\r",
+									"        pm.expect(jsonResponse.content[0].salary).to.not.equal(\"\");\r",
+									"    } else {\r",
+									"        jsonResponse.content[0].salary = \"unknown\";\r",
+									"    }\r",
+									"});\r",
+									"pm.test(\"Status code is 204 when no results are available\", function () {\r",
+									"    if (pm.response.code === 204) {\r",
+									"        var jsonResponse = pm.response.json();\r",
+									"        pm.expect(jsonResponse).to.deep.include({ message: \"No result available\" });\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "7305690b-2812-42b2-8cfe-749f5f4b64cb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.jobka.net:8081/jobs?company=Apple",
+							"protocol": "http",
+							"host": [
+								"api",
+								"jobka",
+								"net"
+							],
+							"port": "8081",
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "Apple"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3fd351d3-5512-41f0-b9d9-e043004e67da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"    var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Date text, 2023-01-03\", function () {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"    pm.expect(jsonResponse.content[0].date).to.include(\"2023-01-03\");\r",
+									"for(let i=0; i< jsonResponse.content.length; i++){\r",
+									"pm.expect(jsonResponse.content[i].date).to.include(\"2023-01-03\")\r",
+									"}});\r",
+									"\r",
+									"pm.test(\"Date test body details, 2023-01-03\", function () {\r",
+									"    pm.expect(jsonResponse.content[0].date).to.include(\"2023-01-03\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"position\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"company\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"location\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"seniority\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"link\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"description\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"time\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"salary\");\r",
+									"    pm.expect(jsonResponse.content[0]).to.have.property(\"date\");\r",
+									"    if (jsonResponse.content[0].salary) {\r",
+									"        pm.expect(jsonResponse.content[0].salary).to.not.equal(\"\");\r",
+									"    } else {\r",
+									"        jsonResponse.content[0].salary = \"unknown\";\r",
+									"    }\r",
+									"});\r",
+									"pm.test(\"Status code is 204 when no results are available\", function () {\r",
+									"    if (pm.response.code === 204) {\r",
+									"        var jsonResponse = pm.response.json();\r",
+									"        pm.expect(jsonResponse).to.deep.include({ message: \"No result available\" });\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "38033cfb-8fc6-4152-a47a-946b491f8a51",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.jobka.net:8081/jobs?date=2023-01-03",
+							"protocol": "http",
+							"host": [
+								"api",
+								"jobka",
+								"net"
+							],
+							"port": "8081",
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2023-01-03"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "f40a4a0a-8eca-4eca-869b-e8f9412f2359"
+		},
+		{
+			"name": "Negative tests",
+			"item": [
+				{
+					"name": "By invalide position",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5c5d24f2-5567-4eca-9282-73f67c4e9c7d",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.test(\"Invalid position name text\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Singer\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "7d3b2135-1164-4750-8c05-8f79fdfd1078",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.jobka.net:8081/jobs?position=Singer",
+							"protocol": "http",
+							"host": [
+								"api",
+								"jobka",
+								"net"
+							],
+							"port": "8081",
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "position",
+									"value": "Singer"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By invalide location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2ebe9f4-13de-4457-b9d8-c6c58fa003a4",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.test(\"Invalid location name text\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Tokio\")});\r",
+									"\r",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "c8067dbd-0f47-4927-8dd4-aec466761ea5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.jobka.net:8081/jobs?location=Tokio",
+							"protocol": "http",
+							"host": [
+								"api",
+								"jobka",
+								"net"
+							],
+							"port": "8081",
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Tokio"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By invalide company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fff1b7a3-edc4-475d-bb65-1af9b97f1308",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.test(\"Invalid company name text\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Simone\")});\r",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "8636c9ce-c53f-4c37-baf2-7766ca763b51",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.jobka.net:8081/jobs?company=Simone",
+							"protocol": "http",
+							"host": [
+								"api",
+								"jobka",
+								"net"
+							],
+							"port": "8081",
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "Simone"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By invalide date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "baf00df5-88a8-4c9e-8cab-765906ccd795",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.test(\"Invalid date text\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.eq(\"2222-22-22\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "7c8860ec-8969-4401-bf6a-11e96678edbb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.jobka.net:8081/jobs?date=0000-00-00",
+							"protocol": "http",
+							"host": [
+								"api",
+								"jobka",
+								"net"
+							],
+							"port": "8081",
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "0000-00-00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "39b711ff-caa1-463c-940c-f044b0f43144"
+		},
+		{
+			"name": "GitHub API",
+			"item": [],
+			"_postman_id": "9ef8b214-8ffa-4fcc-bfd0-e4d74253bc00"
+		},
+		{
+			"name": "Create new file",
+			"_postman_id": "56f38563-b430-47b6-b0e4-11745ebd3fef",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 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",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\":\"message\",\r\n    \"content\":\"V2VsbCwgaGVsbG8gdGhlcmUh\"\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": "https://api.github.com/repos/IngaIvanov/Job-Cafe-Project-API/contents/test.txt"
+			},
+			"response": []
+		}
+	]
+}
